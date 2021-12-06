@@ -18,7 +18,7 @@ def root() -> dict:
     """
     return {"msg": "Hello, World!"}
 
-@app_router.get("/hello", status_code=200)
+@api_router.get("/hello", status_code=200)
 def test() -> dict:
     return {"test": "test message"}
 
