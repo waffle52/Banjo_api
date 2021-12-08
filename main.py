@@ -20,7 +20,7 @@ def root() -> dict:
 
 @api_router.get("/hello", status_code=200)
 def test() -> dict:
-    return {"test": "test message"}
+    return ("test")
 
 # 4
 app.include_router(api_router)
