@@ -2,31 +2,13 @@
 # this script starts an API application using 
 from fastapi import FastAPI, APIRouter
 
-# 1
-app = FastAPI(
-    title="Recipe API", openapi_url="/openapi.json"
-)
-
-# 2
-api_router = APIRouter()
-
-# 3
-@api_router.get("/", status_code=200)
-def root() -> dict:
-    """
-    Root Get
-    """
-    return {"msg": "Hello, World!"}
-
-@api_router.get("/hello", status_code=200)
-def test() -> dict:
-    return ("test")
-
-# 4
-app.include_router(api_router)
+app = FastAPI()
 
 
-# 5
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 if __name__ == "__main__":
     # Use this for debugging purposes only
     import uvicorn
