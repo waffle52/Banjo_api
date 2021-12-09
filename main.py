@@ -5,9 +5,9 @@ from fastapi import FastAPI, APIRouter
 Banjo = FastAPI()
 
 
-@Banjo.get("/")
-async def root():
-    return {"message": "Hello World"}
+@Banjo.get("/PacManScoreTracker/{score}")
+async def take_score(score):
+    return {"item": score}
 
 if __name__ == "__main__":
     # Use this for debugging purposes only
