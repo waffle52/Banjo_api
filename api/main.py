@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # This script starts an API application using FastAPI to manage my server
 from fastapi import FastAPI, APIRouter
-fom models import *
 
 Banjo = FastAPI()
 

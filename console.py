@@ -2,8 +2,6 @@
 # Console application to control the Banjo API
 import cmd
 from datetime import datetime
-import models
-
 
 class BanjoCommand(cmd.Cmd):
     """ Banjo Console """
