@@ -7,7 +7,7 @@ from fastapi import FastAPI, APIRouter
 # Create app instance
 Banjo = FastAPI()
 
-@app.get("/api/public")
+@Banjo.get("/api/public")
 def public():
     """No access token required to access this route"""
 
