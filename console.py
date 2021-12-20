@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Console application to control the Banjo API
+""" Console application to control the Banjo API """
+
 import cmd
 from datetime import datetime
 
@@ -18,3 +19,6 @@ class BanjoCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
+
+if __name__ == '__main__':
+    BanjoCommand().cmdloop()
