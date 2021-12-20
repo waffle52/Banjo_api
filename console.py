@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Console application to control the Banjo API
 import cmd
 from datetime import datetime
