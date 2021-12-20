@@ -21,4 +21,5 @@ class BanjoCommand(cmd.Cmd):
         return True
 
 if __name__ == '__main__':
+    """ Main method """
     BanjoCommand().cmdloop()
