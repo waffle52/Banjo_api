@@ -1,29 +1,22 @@
 #!/usr/bin/env python3
-# This script starts an API application using FastAPI to manage my server
+"""main.py
+This script starts an API application using FastAPI to manage my server
+"""
 from fastapi import FastAPI, APIRouter
 
+# Create app instance
 Banjo = FastAPI()
 
+@app.get("/api/public")
+def public():
+    """No access token required to access this route"""
 
-# PacManScoreTracker HTTP Methods
-@Banjo.get("/PacManScoreTracker/{score}")
-async def take_score(score):
-    return {"item": score}
-
-
-# practice section.
-# SpaceGhostQuotes HTTP Methods
-@Banjo.get("/SpaceGhostQuotes/")
-async def random_quote():
-    # Gets a random quote from the MySQL database
-    return ("test")
-
-
-@Banjo.get("/SpaceGhostQuotes/{quote_id}")
-async def select_quote(quote_id):
-    # Import from models list of quotes and return quote from index via id
-    return (quote_id)
-
+    result = {
+        "status": "success",
+        "msg": ("Hello from a public endpoint! You don't need to be "
+                "authenticated to see this.")
+    }
+    return result
 
 if __name__ == "__main__":
     # Use this for debugging purposes only
