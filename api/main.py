@@ -28,6 +28,7 @@ def public():
 def private(token: str = Depends(token_auth_scheme)):
     """A valid access token is required to access this route"""
     result = token.credentials
+    print("Test: {}".format(result))
     return (result)
 
 
