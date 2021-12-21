@@ -20,6 +20,6 @@ def set_up():
              "DOMAIN": os.getenv("DOMAIN", "your.domain.com"),
              "API_AUDIENCE": os.getenv("API_AUDIENCE", "your.audience.com"),
              "ISSUER": os.getenv("ISSUER", "https://your.domain.com/"),
-             "ALGORITHMS": os.getenv("ALGORITHMS", "RS256"),
+             "ALGORITHMS": os.getenv("ALGORITHMS", "HS256"),
          }
-    return config
+    return (config)
