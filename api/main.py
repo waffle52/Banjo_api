@@ -2,8 +2,10 @@
 """main.py
 This script starts an API application using FastAPI to manage my server
 """
-from fastapi import FastAPI, APIRouter, Depends
+from fastapi import FastAPI, Depends, Response, status
 from fastapi.security import HTTPBearer
+
+from .utils import VerifyToken
 
 # Scheme for the Authorization header
 token_auth_scheme = HTTPBearer()
@@ -27,7 +29,11 @@ def public():
 @Banjo.get("/api/private")
 def private(token: str = Depends(token_auth_scheme)):
     """A valid access token is required to access this route"""
-    result = token.credentials
+    result = VerifyToken(token.credentials).verify()
+    if result.get("status"):
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        print("Test: {}".format(result))
+        return (result)
     print("Test: {}".format(result))
     return (result)
 
