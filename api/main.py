@@ -5,7 +5,7 @@ This script starts an API application using FastAPI to manage my server
 from fastapi import FastAPI, Depends, Response, status
 from fastapi.security import HTTPBearer
 
-from .utils import VerifyToken
+from utils import VerifyToken
 
 # Scheme for the Authorization header
 token_auth_scheme = HTTPBearer()
