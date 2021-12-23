@@ -136,7 +136,7 @@ async def read_own_items(current_user: User = Depends(get_current_active_user)):
 
 # PacManScoreTracker HTTP Methods
 @Banjo.get("/PacManScoreTracker/{score}")
-async def take_score(score):
+async def take_score(score, token: str = Depends(oauth2_scheme)):
     return {"item": score}
 
 # SpaceGhostQuotes HTTP Methods
