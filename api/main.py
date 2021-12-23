@@ -133,3 +133,20 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
 @Banjo.get("/users/me/items/")
 async def read_own_items(current_user: User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
+
+# PacManScoreTracker HTTP Methods
+@Banjo.get("/PacManScoreTracker/{score}")
+async def take_score(score):
+    return {"item": score}
+
+# SpaceGhostQuotes HTTP Methods
+@Banjo.get("/SpaceGhostQuotes/")
+async def random_quote():
+    # Gets a random quote from the MySQL database
+    return ("test")
+
+
+@Banjo.get("/SpaceGhostQuotes/{quote_id}")
+async def select_quote(quote_id):
+    # Import from models list of quotes and return quote from index via id
+    return (quote_id)
