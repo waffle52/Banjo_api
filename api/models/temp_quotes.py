@@ -1,2 +1,11 @@
-space_quotes = {1: "I'll be dead long before you were born and I'll be dead
-long before you'll be dead."}
+class quote:
+    def __init__(self, person, idx, quote):
+        self.person = person
+        self.idx = idx
+        self.quote = quote
+
+    def read(self):
+        return (self.quote)
+
+quotes = []
+quotes.append(quote("Space Ghost", 0, "Bears are Crazy. They'll bite your head if you're wearing a steak on it."))
