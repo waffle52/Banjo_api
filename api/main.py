@@ -156,6 +156,7 @@ async def post_score(quote, ):
 async def random_quote():
     # Gets a random quote from the MySQL database
     rdm = random.randint(0, len(temp_quotes.quotes))
+    print("Test: {}".format(rdm))
     return (temp_quotes.quotes[rdm].read())
 
 
