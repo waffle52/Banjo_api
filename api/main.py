@@ -10,6 +10,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
+from ..models import *
 
 SECRET_KEY = "f162cbd28241c5ea68394e3afe9e553672fc53e727a0b7c13a13cd8b8ce24083"
 ALGORITHM = "HS256"
@@ -127,6 +128,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @Banjo.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    print("Test: {}".format(space_quotes[1]))
     return current_user
 
 
@@ -134,19 +136,29 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
 async def read_own_items(current_user: User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
-# PacManScoreTracker HTTP Methods
-@Banjo.get("/PacManScoreTracker/{score}")
-async def take_score(score, token: str = Depends(oauth2_scheme)):
-    return {"item": score}
+# POST new Pac-Man score and launch app to update db
+@Banjo.post("/PacManScoreTracker/{NewScore}")
+async def new_score(NewScore):
+    return {"new score:", NewScore}
 
-# SpaceGhostQuotes HTTP Methods
+# PacManScoreTracker HTTP Methods, get score by rank
+@Banjo.get("/PacManScoreTracker/{pos}")
+async def get_score(score, token: str = Depends(oauth2_scheme)):
+    return {"item": pos}
+
+# POST new Space Ghost Quote and update db
+@Banjo.post("/SpaceGhostQuotes/{NewQuote}")
+async def post_score(quote, ):
+    return {"new quote:", quote}
+
+
 @Banjo.get("/SpaceGhostQuotes/")
 async def random_quote():
     # Gets a random quote from the MySQL database
     return ("test")
 
 
-@Banjo.get("/SpaceGhostQuotes/{quote_id}")
-async def select_quote(quote_id):
+@Banjo.get("/SpaceGhostQuotes/{index}")
+async def select_quote(index):
     # Import from models list of quotes and return quote from index via id
     return (quote_id)
