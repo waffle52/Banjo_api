@@ -12,4 +12,3 @@ class quote:
 
 quotes = []
 quotes.append(quote("Space Ghost", 0, "Bears are Crazy. They'll bite your head if you're wearing a steak on it."))
-print(quotes[0].read())
