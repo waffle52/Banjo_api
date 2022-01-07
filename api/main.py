@@ -157,8 +157,7 @@ async def random_quote():
     # Gets a random quote from the MySQL database
     rdm = random.randint(0, 10)
     rdm = 0 # only one quote right now
-    print("Test: {}".format(temp_quotes.quotes[rdm].read()))
-    return ("test")
+    return (temp_quotes.quotes[rdm].read())
 
 
 @Banjo.get("/SpaceGhostQuotes/{index}")
