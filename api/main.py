@@ -11,6 +11,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from api.models import temp_quotes
+import random
 
 SECRET_KEY = "f162cbd28241c5ea68394e3afe9e553672fc53e727a0b7c13a13cd8b8ce24083"
 ALGORITHM = "HS256"
@@ -128,7 +129,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @Banjo.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    print("Test: {}".format(temp_quotes.quotes[0].read()))
     return current_user
 
 
@@ -155,10 +155,14 @@ async def post_score(quote, ):
 @Banjo.get("/SpaceGhostQuotes/")
 async def random_quote():
     # Gets a random quote from the MySQL database
+    rdm = random.randint(0, 10)
+    rdm = 0 # only one quote right now
+    print("Test: {}".format(temp_quotes.quotes[rdm].read()))
     return ("test")
 
 
 @Banjo.get("/SpaceGhostQuotes/{index}")
 async def select_quote(index):
     # Import from models list of quotes and return quote from index via id
+    print("Test: {}".format(temp_quotes.quotes[index].read()))
     return (quote_id)
