@@ -10,7 +10,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from ..models import *
+from models import *
 
 SECRET_KEY = "f162cbd28241c5ea68394e3afe9e553672fc53e727a0b7c13a13cd8b8ce24083"
 ALGORITHM = "HS256"
