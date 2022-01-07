@@ -155,8 +155,7 @@ async def post_score(quote, ):
 @Banjo.get("/SpaceGhostQuotes/")
 async def random_quote():
     # Gets a random quote from the MySQL database
-    rdm = random.randint(0, 10)
-    rdm = 0 # only one quote right now
+    rdm = random.randint(0, len(temp_quotes.quotes))
     return (temp_quotes.quotes[rdm].read())
 
 
