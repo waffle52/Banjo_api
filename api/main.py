@@ -128,7 +128,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @Banjo.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    print("Test: {}".format(space_quotes[1]))
+    print("Test: {}".format(space_quotes[0].read()))
     return current_user
 
 
