@@ -165,3 +165,8 @@ async def select_quote(index):
     # Import from models list of quotes and return quote from index via id
     print("Test: {}".format(temp_quotes.quotes[index].read()))
     return (quote_id)
+
+
+@Banjo.get("/Online")
+async def status():
+    return ("Status: Online")
