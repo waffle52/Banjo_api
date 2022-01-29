@@ -2,31 +2,29 @@
 """main.py
 This script starts an API application using FastAPI to manage my server
 """
+from api.models import temp_quotes
 from datetime import datetime, timedelta
-from typing import Optional
-
+from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from api.models import temp_quotes
 import random
+import os
+from typing import Optional
+from user import *
 
-SECRET_KEY = "f162cbd28241c5ea68394e3afe9e553672fc53e727a0b7c13a13cd8b8ce24083"
-ALGORITHM = "HS256"
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
+fake_users_db = real_user_db
+
 
 class Token(BaseModel):
     access_token: str
@@ -46,6 +44,7 @@ class User(BaseModel):
 
 class UserInDB(User):
     hashed_password: str
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -87,6 +86,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -106,15 +106,19 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
+
+async def get_current_active_user(current_user:
+                                  User = Depends(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
 @Banjo.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+async def login_for_access_token(form_data:
+                                 OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(fake_users_db, form_data.username,
+                             form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -127,24 +131,29 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @Banjo.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 
 @Banjo.get("/users/me/items/")
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
+async def read_own_items(current_user:
+                         User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
+
 
 # POST new Pac-Man score and launch app to update db
 @Banjo.post("/PacManScoreTracker/{NewScore}")
 async def new_score(NewScore):
     return {"new score:", NewScore}
 
+
 # PacManScoreTracker HTTP Methods, get score by rank
 @Banjo.get("/PacManScoreTracker/{pos}")
 async def get_score(score, token: str = Depends(oauth2_scheme)):
     return {"item": pos}
+
 
 # POST new Space Ghost Quote and update db
 @Banjo.post("/SpaceGhostQuotes/{NewQuote}")
