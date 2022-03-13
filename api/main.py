@@ -178,7 +178,8 @@ async def select_quote(index):
 
 @Banjo.get("/PC_START/{signal}")
 async def send_signal(signal):
-    list_files = subprocess.run(["python3", "~/pc_start/send_signal.py"])
+    list_files = subprocess.run(["python3", "~/pc_start/send_signal.py",
+                                 "{}".format(signal)])
     return ("Activated")
 
 
