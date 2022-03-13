@@ -11,6 +11,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 import random
+import subprocess
 import os
 from typing import Optional
 from user import *
@@ -174,6 +175,10 @@ async def select_quote(index):
     # Import from models list of quotes and return quote from index via id
     print("Test: {}".format(temp_quotes.quotes[index].read()))
     return (quote_id)
+
+@Banjo.get("/PC_START/{signal}")
+async def send_signal(signal):
+    list_files = subprocess.run(["sudo python3 ~/pc_start/send_signal.py", signal])
 
 
 @Banjo.get("/Online")
