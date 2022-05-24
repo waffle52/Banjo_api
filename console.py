@@ -7,7 +7,7 @@ import cmd
 class BanjoCommand(cmd.Cmd):
     """Entry point for command interpreter
     """
-    prompt = "(Banjo) $"
+    prompt = "(Banjo) $ "
 
 
     def emptyline(self):
