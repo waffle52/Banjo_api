@@ -15,7 +15,7 @@ from pydantic import BaseModel
 import random
 import os
 from typing import Optional
-from user import *
+# from user import *
 
 
 load_dotenv()
@@ -176,6 +176,12 @@ async def select_quote(index):
     # Import from models list of quotes and return quote from index via id
     print("Test: {}".format(temp_quotes.quotes[index].read()))
     return (quote_id)
+
+@Banjo.get("/PC_START/{signal}")
+async def send_signal(signal):
+    list_files = subprocess.run(["python3", "/home/ubuntu/pc_start/send_signal.py",
+                                 "{}".format(signal)])
+    return ("Activated")
 
 
 @Banjo.get("/Online")
