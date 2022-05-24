@@ -25,7 +25,7 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-fake_users_db = real_user_db
+# fake_users_db = real_user_db
 
 
 class Token(BaseModel):
