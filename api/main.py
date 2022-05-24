@@ -8,13 +8,15 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
+import json
+import mysql.connector
 from passlib.context import CryptContext
 from pydantic import BaseModel
 import random
 import subprocess
 import os
 from typing import Optional
-from user import *
+# from user import *
 
 
 load_dotenv()
@@ -24,7 +26,7 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-fake_users_db = real_user_db
+# fake_users_db = real_user_db
 
 
 class Token(BaseModel):
