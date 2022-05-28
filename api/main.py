@@ -163,7 +163,7 @@ async def read_own_items(current_user:
 
 # Path to turn ON or OFF Desktop Server.
 @Banjo.get("/PC_START/{signal}")
-async def send_signal(signal: string):
+async def send_signal(signal: str):
     list_files = subprocess.run(["python3", "/home/ubuntu/pc_start/send_signal.py",
                                  "{}".format(signal)])
     return ("Activated")
