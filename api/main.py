@@ -16,7 +16,6 @@ import random
 import subprocess
 import os
 from typing import Optional
-# from user import *
 
 
 # TODO: Clean up code, comment code, Set up correct Security and Database Access etc...
@@ -142,52 +141,19 @@ async def login_for_access_token(form_data:
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
-
 @Banjo.get("/users/me/items/")
 async def read_own_items(current_user:
                          User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
-
-# POST new Pac-Man score and launch app to update db
-@Banjo.post("/PacManScoreTracker/{NewScore}")
-async def new_score(NewScore):
-    return {"new score:", NewScore}
-
-
-# PacManScoreTracker HTTP Methods, get score by rank
-@Banjo.get("/PacManScoreTracker/{pos}")
-async def get_score(score, token: str = Depends(oauth2_scheme)):
-    return {"item": pos}
-
-
-# POST new Space Ghost Quote and update db
-@Banjo.post("/SpaceGhostQuotes/{NewQuote}")
-async def post_score(quote, ):
-    return {"new quote:", quote}
-
-
-@Banjo.get("/SpaceGhostQuotes/")
-async def random_quote():
-    # Gets a random quote from the MySQL database
-    rdm = random.randint(0, len(temp_quotes.quotes) - 1)
-    print("Test: {}".format(rdm))
-    return (temp_quotes.quotes[rdm].read())
-
-
-@Banjo.get("/SpaceGhostQuotes/{index}")
-async def select_quote(index):
-    # Import from models list of quotes and return quote from index via id
-    print("Test: {}".format(temp_quotes.quotes[index].read()))
-    return (quote_id)
-
+# Path to turn ON or OFF Desktop Server.
 @Banjo.get("/PC_START/{signal}")
 async def send_signal(signal):
     list_files = subprocess.run(["python3", "/home/ubuntu/pc_start/send_signal.py",
                                  "{}".format(signal)])
     return ("Activated")
 
-
+# Path to check if server is online, use for remote alerts.
 @Banjo.get("/Online")
 async def status():
     return ("Status: Online")
