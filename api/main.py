@@ -18,10 +18,11 @@ import os
 from typing import Optional
 
 
-# TODO: Clean up code, comment code, Set up correct Security and Database Access etc...
+# TODO: Clean up code, comment code, Set up correct Security and Database Access(Spaceghost, pacman, users instead of .env,) etc...
 # Test comment for git upload
 # Set up unit tests. pycode style code.
 
+# load the .env file
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -31,11 +32,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # set up env
 fake_users_db = {
-    "kyle": {
-        "username": "CyberWaffle",
+    "Admin": {
+        "username": os.getenv("USERNAME"),
         "full_name": "Kyle Campbell",
-        "email": "asuka9767@protonmail.com",
-        "hashed_password": "fakehashedsecret",
+        "email": os.getenv("EMAIL"),
+        "hashed_password": os.getenv("PASS"),
         "disabled": False,
     }
 }
