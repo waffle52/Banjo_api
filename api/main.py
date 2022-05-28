@@ -20,6 +20,7 @@ from typing import Optional
 
 # TODO: Clean up code, comment code, Set up correct Security and Database Access etc...
 # Test comment for git upload
+# Set up unit tests. pycode style code.
 
 load_dotenv()
 
@@ -28,25 +29,34 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-# fake_users_db = real_user_db
+# set up env
+fake_users_db = {
+    "kyle": {
+        "username": "CyberWaffle",
+        "full_name": "Kyle Campbell",
+        "email": "asuka9767@protonmail.com",
+        "hashed_password": "fakehashedsecret",
+        "disabled": False,
+    }
+}
 
-
+# BaseModel Class that holds access token and the type of token.
 class Token(BaseModel):
     access_token: str
     token_type: str
 
-
+# ...
 class TokenData(BaseModel):
     username: Optional[str] = None
 
-
+# ...
 class User(BaseModel):
     username: str
     email: Optional[str] = None
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
 
-
+# ...
 class UserInDB(User):
     hashed_password: str
 
@@ -55,23 +65,25 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+# Create APP Instance
 Banjo = FastAPI()
 
-
+"""
+# ...
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
-
+# ...
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-
+# ...
 def get_user(db, username: str):
     if username in db:
         user_dict = db[username]
         return UserInDB(**user_dict)
 
-
+# ...
 def authenticate_user(fake_db, username: str, password: str):
     user = get_user(fake_db, username)
     if not user:
@@ -80,7 +92,7 @@ def authenticate_user(fake_db, username: str, password: str):
         return False
     return user
 
-
+# ...
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -91,7 +103,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-
+# ...
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -111,14 +123,14 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user
 
-
+# ...
 async def get_current_active_user(current_user:
                                   User = Depends(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
-
+# ...
 @Banjo.post("/token", response_model=Token)
 async def login_for_access_token(form_data:
                                  OAuth2PasswordRequestForm = Depends()):
@@ -136,19 +148,21 @@ async def login_for_access_token(form_data:
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-
+# ...
 @Banjo.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
+# ...
 @Banjo.get("/users/me/items/")
 async def read_own_items(current_user:
                          User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
+"""
 
 # Path to turn ON or OFF Desktop Server.
 @Banjo.get("/PC_START/{signal}")
-async def send_signal(signal):
+async def send_signal(signal: string):
     list_files = subprocess.run(["python3", "/home/ubuntu/pc_start/send_signal.py",
                                  "{}".format(signal)])
     return ("Activated")
