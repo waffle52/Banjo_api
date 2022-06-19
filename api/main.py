@@ -69,7 +69,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # Create APP Instance
 Banjo = FastAPI()
 
-@Banjo.get("/test")
+@Banjo.get("/api/test")
 async def test():
     return ("Test function to help join api with public website")
 
