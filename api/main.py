@@ -69,9 +69,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # Create APP Instance
 Banjo = FastAPI()
 
-@Banjo.get("/api/test")
-async def test():
-    return ("Test function to help join api with public website")
 
 """
 # ...
@@ -136,7 +133,7 @@ async def get_current_active_user(current_user:
     return current_user
 
 # ...
-@Banjo.post("/token", response_model=Token)
+@Banjo.post("/api/token", response_model=Token)
 async def login_for_access_token(form_data:
                                  OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(fake_users_db, form_data.username,
@@ -154,25 +151,25 @@ async def login_for_access_token(form_data:
     return {"access_token": access_token, "token_type": "bearer"}
 
 # ...
-@Banjo.get("/users/me/", response_model=User)
+@Banjo.get("/api/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 # ...
-@Banjo.get("/users/me/items/")
+@Banjo.get("/api/users/me/items/")
 async def read_own_items(current_user:
                          User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 """
 
 # Path to turn ON or OFF Desktop Server.
-@Banjo.get("/PC_START/{signal}")
+@Banjo.get("/api/PC_START/{signal}")
 async def send_signal(signal: str):
     list_files = subprocess.run(["python3", "/home/ubuntu/pc_start/send_signal.py",
                                  "{}".format(signal)])
     return ("Activated")
 
 # Path to check if server is online, use for remote alerts.
-@Banjo.get("/Online")
+@Banjo.get("/api/Online")
 async def status():
     return ("Status: Online")
