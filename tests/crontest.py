@@ -9,7 +9,7 @@ from crontab import CronTab
 # option to disable stable
 
 
-cron = CronTab(user='root')
+cron = CronTab(user='ubuntu')
 
 for job in cron:
     print(job)
