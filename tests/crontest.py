@@ -37,3 +37,6 @@ search = cron.find_comment('Stable API')
 
 for item in search:
     print (item)
+
+cron.remove(job)
+print "Job removed"
