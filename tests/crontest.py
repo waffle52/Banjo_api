@@ -27,5 +27,5 @@ search = cron.find_comment('Stable API')
 for item in search:
     print (item)
 
-if (item == ""):
+if (search == ""):
     print ("Blank")
