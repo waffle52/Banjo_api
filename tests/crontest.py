@@ -25,6 +25,4 @@ job = cron.new(command='cd /home/ubuntu/stable/Banjo_api && /usr/bin/bash /home/
 search = cron.find_comment('Stable API')
 
 for item in search:
-    print (item)
-    if (item == ""):
-        print ("BLANK")
+    print (type(item))
