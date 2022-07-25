@@ -8,8 +8,24 @@ from crontab import CronTab
 # option to enable/re-enable Stable from directory.
 # option to disable stable
 
+# STEP 1 check if stable is running via. cron? bash?
+
+
+# STEP 2 if step 1 shows it is online. Ask to kill it & remove from file? 
+
+# STEP 2.1 if step 1 show it is offline. Ask to enable it by adding it to cron file. 
+
+
+# TEST CODE BELOW
 
 cron = CronTab(user='ubuntu')
 
-for job in cron:
-    print(job)
+job = cron.new(command='cd /home/ubuntu/stable/Banjo_api && /usr/bin/bash /home/ubuntu/stable/Banjo_api/startup.sh', comment='Stable API Running')
+
+search = cron.find_comment('Stable API')
+
+for item in search:
+    print item
+
+if (item == ""):
+    print ("Blank")
