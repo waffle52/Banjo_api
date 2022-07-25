@@ -25,4 +25,15 @@ job = cron.new(command='cd /home/ubuntu/stable/Banjo_api && /usr/bin/bash /home/
 search = cron.find_comment('Stable API')
 
 for item in search:
-    print (type(item))
+    print (item)
+
+# second test with adding job
+job = cron.new(command='cd /home/ubuntu/stable/Banjo_api && /usr/bin/bash /home/ubuntu/stable/Banjo_api/startup.sh', comment='Stable API Running')
+job.minute.every(1)
+
+cron.write()
+
+search = cron.find_comment('Stable API')
+
+for item in search:
+    print (item)
