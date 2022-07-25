@@ -39,4 +39,4 @@ for item in search:
     print (item)
 
 cron.remove(job)
-print "Job removed"
+print ("Job removed")
